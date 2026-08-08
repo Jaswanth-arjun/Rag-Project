@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 AI Second Brain — Personal RAG Assistant
 
-## Getting Started
+Your secure AI-powered second brain. Remember everything, retrieve instantly with natural language.
 
-First, run the development server:
+## 🚀 Quick Start
 
+### Frontend (Next.js)
 ```bash
+cd d:\rag
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Backend (FastAPI)
+```powershell
+cd d:\rag\backend
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Set environment variable (PowerShell syntax)
+$env:OPENAI_API_KEY="sk-or-v1-your-key-here"
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Run backend using virtual environment
+.\venv\Scripts\python main.py
+# → http://localhost:8000
+```
 
-## Learn More
+> **Note:** The frontend works standalone with local fallback responses. Connect the backend for full RAG capabilities.
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Core Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Feature | Description |
+|---------|-------------|
+| 📊 Dashboard | Stats, quick actions, search bar, categories, recent docs/chats |
+| 💬 AI Chat | ChatGPT-style interface with markdown, file attachments, conversation history |
+| 📁 Documents | Drag-drop upload, auto-categorization, grid/list view, 20+ file types |
+| 🧠 Memory | Permanent memory storage, categories, tags, search |
+| 🔍 Search | Universal search across documents, memories, chats |
+| 📝 Notes | Create/edit/bookmark notes |
+| 🚀 Projects | Track projects with tech stack and progress |
+| 👥 Referrals | LinkedIn contact management with status tracking |
+| 💼 Jobs | Application tracker with stats dashboard |
+| 📚 Study | Subject/topic/difficulty organization |
+| ⚙️ Settings | API key, backend URL, theme toggle |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Design
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dark mode • Glassmorphism • Gradient accents • Smooth animations • Responsive • Inter font

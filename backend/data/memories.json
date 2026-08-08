@@ -1,0 +1,22 @@
+[
+  {
+    "id": "e0d5e919-7548-4f53-b095-deccf2512bdf",
+    "doc_id": "bf03c416-08a8-4524-9df8-28f2107853b4",
+    "filename": "myimg.jpeg",
+    "content": "this is my passport size image",
+    "category": "Personal Documents",
+    "tags": [
+      "government",
+      "personal",
+      "identity"
+    ],
+    "created_at": "2026-08-08T13:18:38.925151"
+  },
+  {
+    "id": "8f3ed2b0-cee0-460d-83ff-1c7eb191c550",
+    "content": "this is my passport size image  in your memory",
+    "category": "Personal Notes",
+    "tags": [],
+    "created_at": "2026-08-08T13:19:57.705915"
+  }
+]

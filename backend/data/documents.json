@@ -1,0 +1,53 @@
+[
+  {
+    "id": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+    "filename": "Nelluru_Jaswanth_Resume.pdf",
+    "file_path": "D:\\rag\\backend\\data\\uploads\\0f3d54d5-f147-4939-ace8-7901e2fad2d6.pdf",
+    "category": "Resume",
+    "extracted_text": "NELLURU JASWANTH\nNaidupeta, Tirupati District, Andhra Pradesh, India\n+91 9440552825⋄nellurujaswanth2004@gmail.com⋄LinkedIn⋄GitHub\nPROFESSIONAL SUMMARY\nComputer Science undergraduate skilled in Java, Spring Framework, Spring Boot, React.js, REST APIs, Git, scalable\nbackend services, CI/CD fundamentals, DevSecOps concepts, debugging, troubleshooting, OOP, data structures, and\nfull-stack SaaS application development with exposure to AI/LLM concepts and data-driven systems.\nEDUCATION\nB.Tech in Computer Science and Engineering2023 – 2027\nN.B.K.R. Institute of Science and Technology, Tirupati CGPA: 7.5/10\nIntermediate (10+2) – MPC2021 – 2023\nV.B.R. Junior College, Nellore Percentage: 96%\nTECHNICAL SKILLS\nLanguagesJava, Python, C\nFrameworksSpring Framework, Spring Boot, React.js, Flutter\nCore CSOOP, Data Structures, Algorithms, DBMS, SDLC\nBackendREST APIs, Backend Services, Debugging, Troubleshooting\nDatabasesMySQL, NoSQL, Data Processing\nToolsGit, GitHub, CI/CD Fundamentals, Version Control\nAI & TechAI Agents, LLM Concepts, Automation Workflows\nDevelopmentFull-Stack SaaS Applications, Microservices Basics\nINTERNSHIPS\nFull Stack Web Development Intern — CertificateFeb 2025 – May 2025\nDeveloped responsive frontend and backend modules using modern web technologies, REST APIs, Git workflows,\ndebugging, and scalable application development practices.\nJava Full Stack Developer Intern — CertificateDec 2025 – Mar 2026\nBuilt Java backend services using Spring Boot and React.js while working on API integration, performance optimiza-\ntion, troubleshooting, and clean coding practices.\nPROJECTS\nAI-Powered Mobile App for Food Safety & Hygiene Monitoring— Flutter GitHub\nDeveloped an AI-powered mobile application with image-based analysis, backend workflows, and data-driven moni-\ntoring features for food safety compliance.\nCourse Automation AI Agent— Full Stack, Python GitHub\nBuilt an AI-driven course automation platform with scheduling, email workflows, and scalable backend automation.\nFee Queue Management System— Full Stack, PHP GitHub\nDeveloped a queue management system with database integration, real-time token tracking, and workflow optimiza-\ntion for efficient fee processing.\nACHIEVEMENTS & ADDITIONAL INFORMATION\nAchievements:1st Place – Cybersecurity CTF Hackathon (2025); 2nd Prize – Chatbot Buildathon, TECHTATVA\n2K25; 4th Place – VaultSphere Hackathon\nLeadership:Vice President (Sales), AIESEC ConnectWorks Leadership Program (2025)\nProblem Solving:Solved 500+ DSA problems across LeetCode, HackerRank, CodeChef, and CodeForces\nLanguages:English, Telugu, Hindi",
+    "summary": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Contact Information:** \n  - Phone: +91 9440552825\n  - Email: nellurujaswanth2004@gmail.com\n  - LinkedIn: [Link not provided]\n  - GitHub: [Link not provided]\n- **Education:**\n  - B.Tech in Computer Science and Engineering (2023 – 2027) at N.B.K.R. Institu",
+    "tags": [
+      "resume",
+      "career"
+    ],
+    "chunks": 1,
+    "size": 81132,
+    "uploaded_at": "2026-08-07T17:59:39.288350",
+    "ai_description": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Contact Information:** \n  - Phone: +91 9440552825\n  - Email: nellurujaswanth2004@gmail.com\n  - LinkedIn: [Link not provided]\n  - GitHub: [Link not provided]\n- **Education:**\n  - B.Tech in Computer Science and Engineering (2023 – 2027) at N.B.K.R. Institute of Science and Technology, Tirupati, CGPA: 7.5/10\n  - Intermediate (10+2) – MPC (2021 – 2023) at V.B.R. Junior College, Nellore, Percentage: 96%\n- **Internships:**\n  - Full Stack Web Development Intern (Feb 2025 – May 2025)\n  - Java Full Stack Developer Intern (Dec 2025 – Mar 2026)\n- **Projects:**\n  - AI-Powered Mobile App for Food Safety & Hygiene Monitoring\n  - Course Automation AI Agent\n  - Fee Queue Management System\n- **Achievements:**\n  - 1st Place – Cybersecurity CTF Hackathon (2025)\n  - 2nd Prize – Chatbot Buildathon, TECHTATVA 2K25\n  - 4th Place – VaultSphere Hackathon\n- **Leadership Role:** Vice President (Sales), AIESEC ConnectWorks Leadership Program (2025)\n- **Problem Solving:** Solved 500+ DSA problems across various platforms\n- **Languages:** English, Telugu, Hindi\n\n**Main Topics:**\n- Computer Science Education\n- Technical Skills in Software Development\n- Full Stack Development\n- AI and Automation Technologies\n- Internship Experience\n- Project Development\n- Achievements in Competitions and Leadership Roles\n\n**Search"
+  },
+  {
+    "id": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+    "filename": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+    "file_path": "D:\\rag\\backend\\data\\uploads\\b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+    "category": "Personal Documents",
+    "extracted_text": "[Image File: b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg]",
+    "summary": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 0110 1696 3\n- **Aadhaar Number:** 2601 9471 5892\n- **Visible Text:** \n  - \"Your Aadhaar\"\n  - \"Aadhaar Number\"\n  - \"Information\"\n- **Personal Information:**\n  - Name: [Not visible]\n  - Address: [Not visib",
+    "tags": [
+      "personal",
+      "identity",
+      "government"
+    ],
+    "chunks": 1,
+    "size": 93483,
+    "uploaded_at": "2026-08-07T17:59:39.336814",
+    "ai_description": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 0110 1696 3\n- **Aadhaar Number:** 2601 9471 5892\n- **Visible Text:** \n  - \"Your Aadhaar\"\n  - \"Aadhaar Number\"\n  - \"Information\"\n- **Personal Information:**\n  - Name: [Not visible]\n  - Address: [Not visible]\n- **QR Code:** Present, containing encoded information\n- **Language:** Kannada and English\n- **Additional Information:** \n  - Contact details for UIDAI\n  - Instructions related to Aadhaar usage\n\nThis description provides a comprehensive overview for search indexing purposes."
+  },
+  {
+    "id": "bf03c416-08a8-4524-9df8-28f2107853b4",
+    "filename": "myimg.jpeg",
+    "file_path": "D:\\rag\\backend\\data\\uploads\\bf03c416-08a8-4524-9df8-28f2107853b4.jpeg",
+    "category": "Personal Documents",
+    "extracted_text": "[Image File: bf03c416-08a8-4524-9df8-28f2107853b4.jpeg]",
+    "ai_description": "Document Type: Photo ID\n\nKey Details:\n- The image is a passport-sized photograph of a young male.\n- The individual has short, curly black hair and is wearing glasses.\n- He is dressed in a dark shirt.\n- The background is a plain light color, typical for official identification photos.\n- There are no visible names, numbers, dates, or organization names in the image. \n\nThis photo appears to be suitable for use in various identification documents or applications.",
+    "summary": "Document Type: Photo ID\n\nKey Details:\n- The image is a passport-sized photograph of a young male.\n- The individual has short, curly black hair and is wearing glasses.\n- He is dressed in a dark shirt.\n- The background is a plain light color, typical for official identification photos.\n- There are no visible names, numbers, dates, or organization names in the image. \n\nThis photo appears to be suitab",
+    "user_note": "this is my passport size image",
+    "tags": [
+      "government",
+      "personal",
+      "identity"
+    ],
+    "chunks": 4,
+    "size": 49516,
+    "uploaded_at": "2026-08-08T13:18:38.921911"
+  }
+]
