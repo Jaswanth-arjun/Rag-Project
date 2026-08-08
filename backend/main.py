@@ -730,8 +730,8 @@ async def upload_document(
 
 
 # ─── Document Presentation Helper ───────────────────────────
-def format_document_response(doc: dict, sources: Optional[list] = None) -> str:
-    """Format direct document or image/PDF analysis into structured Markdown output."""
+def format_document_response(doc: dict, sources: Optional[list] = None, include_details: bool = False) -> str:
+    """Format direct document or image/PDF response. Compact card by default; detailed analysis only when requested."""
     filename = doc.get("filename", "Document.pdf")
     category = doc.get("category", "Document")
     doc_id = doc.get("id", "")
@@ -744,45 +744,44 @@ def format_document_response(doc: dict, sources: Optional[list] = None) -> str:
     file_url = f"http://localhost:8000/api/documents/file/{doc_id}"
     is_image = any(filename.lower().endswith(ext) for ext in [".png", ".jpg", ".jpeg", ".webp", ".gif"])
 
-    md = f"📄 **Document File Found:** `{filename}`\n"
+    md = f"📄 **Document File:** `{filename}`\n"
     md += f"📂 **Category:** `{category}` | 📦 **Size:** `{size_str}`\n\n"
 
     if is_image:
         md += f"🖼️ **Image Preview:**\n\n"
         md += f"![{filename}]({file_url})\n\n"
-        md += f"📥 [**Click Here to View / Download Full Resolution Image**]({file_url})\n\n"
+        md += f"📥 [**Click Here to View / Download Full Image**]({file_url})\n\n"
     else:
-        md += f"📥 [**Click Here to View / Download Direct Document File**]({file_url})\n\n"
+        md += f"📥 [**Click Here to View / Download Document File**]({file_url})\n\n"
         
-    md += "---\n\n"
     if user_note:
         md += f"💡 **Stored Memory Note:** *\"{user_note}\"*\n\n"
 
-    # Show AI-generated analysis if available
-    if ai_description:
-        md += "### 🤖 AI Analysis\n\n"
-        md += f"{ai_description}\n\n"
+    # Include detailed AI analysis & extracted text ONLY if explicitly requested by user
+    if include_details:
         md += "---\n\n"
-
-    md += "### 📊 Document Details & Analyzed Content\n\n"
-
-    lines = [line.strip() for line in extracted_text.split("\n") if line.strip()]
-    if lines and not lines[0].startswith("[Image File:"):
-        for line in lines[:30]:
-            if any(k in line.lower() for k in ["name", "email", "phone", "education", "experience", "skills", "summary", "projects", "certif", "aadhar", "identity"]):
-                md += f"- **{line}**\n"
-            else:
-                md += f"- {line}\n"
-    else:
-        md += f"- **File Name:** `{filename}`\n"
-        md += f"- **Category:** `{category}`\n"
-        if user_note:
-            md += f"- **User Description:** *{user_note}*\n"
         if ai_description:
-            md += f"- **AI Identified As:** *{ai_description[:200]}*\n"
-        md += f"- **Status:** Permanently stored in your knowledge base memory\n"
+            md += "### 🤖 AI Analysis\n\n"
+            md += f"{ai_description}\n\n"
+            md += "---\n\n"
 
-    return md
+        md += "### 📊 Document Content Details\n\n"
+        lines = [line.strip() for line in extracted_text.split("\n") if line.strip()]
+        if lines and not lines[0].startswith("[Image File:"):
+            for line in lines[:30]:
+                if any(k in line.lower() for k in ["name", "email", "phone", "education", "experience", "skills", "summary", "projects", "certif", "aadhar", "identity"]):
+                    md += f"- **{line}**\n"
+                else:
+                    md += f"- {line}\n"
+        else:
+            md += f"- **File Name:** `{filename}`\n"
+            md += f"- **Category:** `{category}`\n"
+            if user_note:
+                md += f"- **User Description:** *{user_note}*\n"
+            if ai_description:
+                md += f"- **AI Identified As:** *{ai_description[:200]}*\n"
+
+    return md.strip()
 
 
 @app.post("/api/chat")
@@ -1002,15 +1001,87 @@ async def chat(request: ChatRequest):
             print(f"⚠️ ChromaDB search error: {e}")
 
     # ── 3. BUILD RESPONSE ──
-    # Case A: Strong document match found via keyword / AI analysis search
+    # Helper Intent Detectors
+    question_triggers = [
+        "what", "who", "where", "when", "why", "how", "tell me", "can you",
+        "do i", "is there", "what's", "my name", "my phone", "my email",
+        "my age", "my address", "my skills", "who am i", "hi", "hello", "hey"
+    ]
+    is_question_query = any(qt in message_lower for qt in question_triggers) or "?" in message
+
+    explain_triggers = [
+        "explain", "summarize", "summary", "analyze", "analysis", "details",
+        "what is inside", "what's in", "read", "describe", "overview", "contents"
+    ]
+    is_explain_requested = any(et in message_lower for et in explain_triggers)
+
+    # ── CASE A: Conversational QA / Personal Questions ("what is my name?", "who am I?") ──
+    # ALWAYS route through LLM with retrieved context to give a clean, direct answer rather than dumping raw document cards!
+    if is_question_query:
+        context_snippets = []
+        sources = []
+
+        if matched_doc:
+            fname = matched_doc.get("filename", "")
+            doc_id = matched_doc.get("id", "")
+            user_note = matched_doc.get("user_note", "")
+            ai_desc = matched_doc.get("ai_description", "")
+            extracted = matched_doc.get("extracted_text", "")[:1500]
+            
+            snippet = f"Document File: {fname}\nUser Note: {user_note}\nAI Analysis: {ai_desc}\nText Snippet:\n{extracted}"
+            context_snippets.append(snippet)
+            sources.append({
+                "docId": doc_id,
+                "docName": fname,
+                "snippet": user_note or ai_desc[:150] or extracted[:150],
+                "relevance": 1.0
+            })
+
+        for _, mem in matched_memories[:4]:
+            context_snippets.append(f"Memory Note: {mem['content']}")
+
+        for c in chroma_context[:3]:
+            if c not in context_snippets:
+                context_snippets.append(f"Retrieved Context: {c}")
+
+        if context_snippets and openai_client:
+            try:
+                context_text = "\n\n---\n\n".join(context_snippets)
+                llm_messages = [
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are Nuvio, a personal AI assistant. "
+                            "Answer the user's question directly, naturally, and concisely using the provided personal knowledge base context. "
+                            "Give ONLY the exact answer requested (e.g. if asked for their name, state their name clearly). "
+                            "Do NOT dump full document cards, file listings, or unrequested metadata unless the user explicitly asked to download or view a file."
+                        )
+                    },
+                    {"role": "system", "content": f"Personal Knowledge Base Context:\n\n{context_text}"},
+                ]
+                for h in request.history[-6:]:
+                    llm_messages.append({"role": h["role"], "content": h["content"]})
+                llm_messages.append({"role": "user", "content": message})
+
+                resp = openai_client.chat.completions.create(
+                    model=CHAT_MODEL,
+                    messages=llm_messages,
+                    max_tokens=400,
+                    temperature=0.4,
+                )
+                answer = (resp.choices[0].message.content or "").strip()
+                if answer:
+                    return {"response": answer, "sources": sources or chroma_sources, "context_found": True}
+            except Exception as e:
+                print(f"⚠️ LLM question QA error: {e}")
+
+    # ── CASE B: Specific Document Retrieval / View Request (e.g. "show my resume", "give aadhar card") ──
     if matched_doc and match_score >= 3:
-        # Determine if query unambiguously targets a single document or multiple
         second_score = scored_docs[1][0] if len(scored_docs) > 1 else 0
         is_unambiguous = (len(scored_docs) == 1) or (second_score < match_score * 0.75)
         
         if is_unambiguous:
-            # Single clear match (e.g. only "resume" or only "aadhar" requested)
-            doc_response = format_document_response(matched_doc)
+            doc_response = format_document_response(matched_doc, include_details=is_explain_requested)
             sources = [{
                 "docId": matched_doc["id"],
                 "docName": matched_doc["filename"],
@@ -1019,12 +1090,11 @@ async def chat(request: ChatRequest):
             }]
             return {"response": doc_response, "sources": sources, "context_found": True}
         else:
-            # Multiple specific matches (e.g. user asked for both resume and aadhar)
             high_scoring_docs = [d for sc, d in scored_docs if sc >= match_score * 0.75]
             multi_response = "📚 **Found Matching Documents:**\n\n"
             sources = []
             for d in high_scoring_docs:
-                multi_response += format_document_response(d) + "\n\n---\n\n"
+                multi_response += format_document_response(d, include_details=is_explain_requested) + "\n\n---\n\n"
                 sources.append({
                     "docId": d["id"],
                     "docName": d["filename"],
@@ -1033,7 +1103,7 @@ async def chat(request: ChatRequest):
                 })
             return {"response": multi_response.strip(), "sources": sources, "context_found": True}
 
-    # Case B: Memory match found
+    # ── CASE C: Memory Match Found ──
     if matched_memories:
         mem_lines = []
         sources = []
@@ -1054,14 +1124,14 @@ async def chat(request: ChatRequest):
         answer = "📚 **From your memory:**\n\n" + "\n\n".join(mem_lines)
         return {"response": answer, "sources": sources if sources else chroma_sources, "context_found": True}
 
-    # Case C: ChromaDB context found — use LLM or format directly
+    # ── CASE D: ChromaDB / LLM General Context ──
     if chroma_context:
         context_text = "\n\n---\n\n".join(chroma_context)
 
         if openai_client:
             try:
                 llm_messages = [
-                    {"role": "system", "content": "You are an AI Second Brain assistant. Answer using ONLY the provided context. Be concise. Use markdown. If context has file info, show download links."},
+                    {"role": "system", "content": "You are Nuvio, a personal AI assistant. Answer using ONLY the provided context concisely. Do not dump unnecessary files."},
                     {"role": "system", "content": f"Context from knowledge base:\n\n{context_text}"},
                 ]
                 for h in request.history[-6:]:
@@ -1069,20 +1139,19 @@ async def chat(request: ChatRequest):
                 llm_messages.append({"role": "user", "content": message})
 
                 resp = openai_client.chat.completions.create(
-                    model=CHAT_MODEL, messages=llm_messages, max_tokens=1000, temperature=0.5,
+                    model=CHAT_MODEL, messages=llm_messages, max_tokens=600, temperature=0.4,
                 )
                 return {"response": resp.choices[0].message.content or "", "sources": chroma_sources, "context_found": True}
             except Exception as e:
                 print(f"⚠️ LLM error: {e}")
 
-        # Fallback: show raw context
         return {
             "response": f"📚 **Retrieved from your knowledge base:**\n\n{context_text}",
             "sources": chroma_sources,
             "context_found": True,
         }
 
-    # Case D: Nothing found
+    # ── CASE E: Nothing Found ──
     return {
         "response": f"I searched your knowledge base for: *\"{message}\"*\n\n> No matching documents or memories found.\n\n**To store data:** Attach a file using the 📎 button and describe what it is.\n**To save a note:** Type \"remember my phone is 9876543210\"",
         "sources": [],
