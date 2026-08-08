@@ -24,8 +24,11 @@ export function AIAmbientBackground({
     <div className={stateClasses} aria-hidden="true">
       <span className="ai-ambient-background__glow ai-ambient-background__glow--primary" />
       <span className="ai-ambient-background__glow ai-ambient-background__glow--accent" />
+      <span className="ai-ambient-background__glow ai-ambient-background__glow--cyan" />
       <span className="ai-ambient-background__glow ai-ambient-background__glow--base" />
       <span className="ai-ambient-background__smoke" />
+      <span className="ai-ambient-background__smoke ai-ambient-background__smoke--secondary" />
     </div>
   );
 }
+
