@@ -1197,7 +1197,42 @@ async def chat(request: ChatRequest):
                 )
                 answer = (resp.choices[0].message.content or "").strip()
                 if answer:
-                    return {"response": answer, "sources": sources, "context_found": True}
+                    # Filter sources to include ONLY the specific document(s) relevant to the question and answer
+                    relevant_sources = []
+                    search_tokens = set(expanded_keywords + [w.lower() for w in answer.split() if len(w) > 3])
+                    
+                    doc_relevance = []
+                    for d in all_docs:
+                        d_text = (f"{d.get('filename','')} {d.get('user_note','')} {d.get('category','')} {' '.join(d.get('tags',[]))} {d.get('ai_description','')} {d.get('extracted_text','')[:1500]}").lower()
+                        match_count = sum(1 for tok in search_tokens if tok in d_text)
+                        
+                        # Extra weight if document filename or category is explicitly named in LLM answer
+                        fname_lower = d.get("filename", "").lower()
+                        cat_lower = d.get("category", "").lower()
+                        if (fname_lower and fname_lower in answer.lower()) or (cat_lower and cat_lower in answer.lower()) or ("10th" in answer.lower() and "10th" in d_text) or ("aadhaar" in answer.lower() and "aadhaar" in d_text) or ("resume" in answer.lower() and "resume" in d_text):
+                            match_count += 10
+
+                        if match_count > 3:
+                            doc_relevance.append((match_count, d))
+
+                    doc_relevance.sort(key=lambda x: x[0], reverse=True)
+                    
+                    # Take top matching document(s) only
+                    if doc_relevance:
+                        top_score = doc_relevance[0][0]
+                        # Only keep docs that score close to top score (at least 70% of max score)
+                        for sc, d in doc_relevance:
+                            if sc >= max(8, top_score * 0.7):
+                                relevant_sources.append({
+                                    "docId": d.get("id", ""),
+                                    "docName": d.get("filename", "Document"),
+                                    "snippet": d.get("user_note") or d.get("ai_description", "")[:120] or d.get("extracted_text", "")[:120] or d.get("category", ""),
+                                    "relevance": 1.0
+                                })
+                            if len(relevant_sources) >= 2:
+                                break
+
+                    return {"response": answer, "sources": relevant_sources, "context_found": True}
             except Exception as e:
                 print(f"⚠️ LLM question QA error: {e}")
 
