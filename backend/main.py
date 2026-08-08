@@ -1015,34 +1015,56 @@ async def chat(request: ChatRequest):
     ]
     is_explain_requested = any(et in message_lower for et in explain_triggers)
 
-    # ── CASE A: Conversational QA / Personal Questions ("what is my name?", "who am I?") ──
-    # ALWAYS route through LLM with retrieved context to give a clean, direct answer rather than dumping raw document cards!
+    # ── CASE A: Conversational QA / Personal Questions ("what is my father name?", "what is my name?", "who am I?") ──
+    # ALWAYS scan across ALL documents and memories in the user's personal knowledge base to find the exact answer!
     if is_question_query:
         context_snippets = []
         sources = []
 
-        if matched_doc:
-            fname = matched_doc.get("filename", "")
-            doc_id = matched_doc.get("id", "")
-            user_note = matched_doc.get("user_note", "")
-            ai_desc = matched_doc.get("ai_description", "")
-            extracted = matched_doc.get("extracted_text", "")[:1500]
-            
-            snippet = f"Document File: {fname}\nUser Note: {user_note}\nAI Analysis: {ai_desc}\nText Snippet:\n{extracted}"
-            context_snippets.append(snippet)
+        all_docs = load_documents()
+        all_memories = load_memories()
+
+        # Build comprehensive personal knowledge context from ALL uploaded documents
+        for d in all_docs:
+            fname = d.get("filename", "Document")
+            doc_id = d.get("id", "")
+            cat = d.get("category", "")
+            user_note = d.get("user_note", "")
+            ai_desc = d.get("ai_description", "")
+            extracted = d.get("extracted_text", "")
+            if extracted.startswith("[Image File:"):
+                extracted = ""
+            else:
+                extracted = extracted[:1500]
+
+            doc_entry = f"📄 Document File: '{fname}' (Category: {cat})\n"
+            if user_note:
+                doc_entry += f"User Description Note: {user_note}\n"
+            if ai_desc:
+                doc_entry += f"AI Extracted Summary & Details:\n{ai_desc}\n"
+            if extracted:
+                doc_entry += f"Extracted Text Content:\n{extracted}\n"
+
+            context_snippets.append(doc_entry.strip())
             sources.append({
                 "docId": doc_id,
                 "docName": fname,
-                "snippet": user_note or ai_desc[:150] or extracted[:150],
+                "snippet": user_note or ai_desc[:120] or extracted[:120] or cat,
                 "relevance": 1.0
             })
 
-        for _, mem in matched_memories[:4]:
-            context_snippets.append(f"Memory Note: {mem['content']}")
+        # Add all saved memory notes
+        non_doc_memories = [m for m in all_memories if not m.get("doc_id")]
+        if non_doc_memories:
+            mem_text = "🧠 Saved Personal Notes & Memories:\n"
+            for m in non_doc_memories:
+                mem_text += f"- {m['content']}\n"
+            context_snippets.append(mem_text.strip())
 
+        # Add ChromaDB vector context if any
         for c in chroma_context[:3]:
             if c not in context_snippets:
-                context_snippets.append(f"Retrieved Context: {c}")
+                context_snippets.append(f"Vector Context Snippet: {c}")
 
         if context_snippets and openai_client:
             try:
@@ -1051,13 +1073,16 @@ async def chat(request: ChatRequest):
                     {
                         "role": "system",
                         "content": (
-                            "You are Nuvio, a personal AI assistant. "
-                            "Answer the user's question directly, naturally, and concisely using the provided personal knowledge base context. "
-                            "Give ONLY the exact answer requested (e.g. if asked for their name, state their name clearly). "
-                            "Do NOT dump full document cards, file listings, or unrequested metadata unless the user explicitly asked to download or view a file."
+                            "You are Nuvio, an intelligent Personal AI Assistant. "
+                            "You have full access to the user's personal knowledge base containing all their uploaded documents (Resumes, Marklists, Identity Cards, Photos, Certificates) and saved memories. "
+                            "When the user asks any personal question (e.g. about their name, father's name, mother's name, DOB, roll number, address, phone number, skills, marks, etc.):\n"
+                            "1. Search across ALL provided documents and memories to find the exact answer.\n"
+                            "2. Answer directly, accurately, and concisely. Mention which document (e.g., 10th marklist, Resume, Aadhaar card) the information came from.\n"
+                            "3. If the requested information is NOT present in any of their uploaded documents or memories, state clearly that it is not found in their current documents, list the document names checked, and invite them to share it so you can remember it.\n"
+                            "4. Keep your answer direct and helpful. Do NOT dump raw file schemas or unrequested file lists unless explicitly asked."
                         )
                     },
-                    {"role": "system", "content": f"Personal Knowledge Base Context:\n\n{context_text}"},
+                    {"role": "system", "content": f"User's Complete Personal Knowledge Base Context:\n\n{context_text}"},
                 ]
                 for h in request.history[-6:]:
                     llm_messages.append({"role": h["role"], "content": h["content"]})
@@ -1066,12 +1091,12 @@ async def chat(request: ChatRequest):
                 resp = openai_client.chat.completions.create(
                     model=CHAT_MODEL,
                     messages=llm_messages,
-                    max_tokens=400,
-                    temperature=0.4,
+                    max_tokens=500,
+                    temperature=0.3,
                 )
                 answer = (resp.choices[0].message.content or "").strip()
                 if answer:
-                    return {"response": answer, "sources": sources or chroma_sources, "context_found": True}
+                    return {"response": answer, "sources": sources, "context_found": True}
             except Exception as e:
                 print(f"⚠️ LLM question QA error: {e}")
 
