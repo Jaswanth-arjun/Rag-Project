@@ -5,18 +5,18 @@ import {
   LayoutDashboard,
   FileText,
   Brain,
-  BookOpen,
-  FolderKanban,
-  Users,
-  BriefcaseBusiness,
   GraduationCap,
   Plus,
   MessageSquare,
   Pencil,
   Trash2,
+  Check,
+  X,
   Settings,
   PanelLeftClose,
   PanelLeftOpen,
+  ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import { AIOrb } from "@/components/ai/AIOrb";
 
@@ -24,10 +24,6 @@ export type Page =
   | "home"
   | "documents"
   | "memory"
-  | "notes"
-  | "projects"
-  | "referrals"
-  | "jobs"
   | "study"
   | "settings";
 
@@ -41,14 +37,17 @@ export type BackendConv = {
   last_message_preview?: string;
 };
 
+export type StudyRoomSummary = {
+  id: string;
+  title: string;
+  subject?: string;
+  resource_count?: number;
+};
+
 export const navItems = [
   { id: "home", label: "Home", icon: LayoutDashboard },
   { id: "documents", label: "Documents", icon: FileText },
   { id: "memory", label: "Memory", icon: Brain },
-  { id: "notes", label: "Notes", icon: BookOpen },
-  { id: "projects", label: "Projects", icon: FolderKanban },
-  { id: "referrals", label: "Referrals", icon: Users },
-  { id: "jobs", label: "Job applications", icon: BriefcaseBusiness },
   { id: "study", label: "Study", icon: GraduationCap },
 ] as const;
 
@@ -72,6 +71,14 @@ export interface SidebarProps {
   setIsCollapsed: (collapsed: boolean | ((prev: boolean) => boolean)) => void;
   mobileSidebarOpen: boolean;
   setMobileSidebarOpen: (open: boolean) => void;
+
+  // Study Rooms
+  studyRooms?: StudyRoomSummary[];
+  activeStudyRoomId?: string | null;
+  onNewStudyRoom?: () => void;
+  onSelectStudyRoom?: (id: string) => void;
+  onDeleteStudyRoom?: (id: string, e: React.MouseEvent) => void;
+  onRenameStudyRoom?: (id: string, newTitle: string) => void;
 }
 
 export function Sidebar({
@@ -94,6 +101,12 @@ export function Sidebar({
   setIsCollapsed,
   mobileSidebarOpen,
   setMobileSidebarOpen,
+  studyRooms,
+  activeStudyRoomId,
+  onNewStudyRoom,
+  onSelectStudyRoom,
+  onDeleteStudyRoom,
+  onRenameStudyRoom,
 }: SidebarProps) {
   return (
     <>
@@ -132,6 +145,12 @@ export function Sidebar({
           setActiveConvId={setActiveConvId}
           isCollapsed={isCollapsed}
           setMobileSidebarOpen={setMobileSidebarOpen}
+          studyRooms={studyRooms}
+          activeStudyRoomId={activeStudyRoomId}
+          onNewStudyRoom={onNewStudyRoom}
+          onSelectStudyRoom={onSelectStudyRoom}
+          onDeleteStudyRoom={onDeleteStudyRoom}
+          onRenameStudyRoom={onRenameStudyRoom}
         />
 
         {/* Recent Chats Section */}
@@ -273,6 +292,12 @@ function MainNavigation({
   setActiveConvId,
   isCollapsed,
   setMobileSidebarOpen,
+  studyRooms,
+  activeStudyRoomId,
+  onNewStudyRoom,
+  onSelectStudyRoom,
+  onDeleteStudyRoom,
+  onRenameStudyRoom,
 }: {
   activePage: Page;
   setActivePage: (page: Page) => void;
@@ -280,7 +305,25 @@ function MainNavigation({
   setActiveConvId: (id: string | null) => void;
   isCollapsed: boolean;
   setMobileSidebarOpen: (o: boolean) => void;
+  studyRooms?: StudyRoomSummary[];
+  activeStudyRoomId?: string | null;
+  onNewStudyRoom?: () => void;
+  onSelectStudyRoom?: (id: string) => void;
+  onDeleteStudyRoom?: (id: string, e: React.MouseEvent) => void;
+  onRenameStudyRoom?: (id: string, newTitle: string) => void;
 }) {
+  const [showStudyDropdown, setShowStudyDropdown] = React.useState(false);
+  const [editingRoomId, setEditingRoomId] = React.useState<string | null>(null);
+  const [editRoomTitleInput, setEditRoomTitleInput] = React.useState("");
+
+  const handleSaveRoomTitle = (id: string, e?: React.MouseEvent | React.FormEvent) => {
+    if (e) e.stopPropagation();
+    if (editRoomTitleInput.trim() && onRenameStudyRoom) {
+      onRenameStudyRoom(id, editRoomTitleInput.trim());
+    }
+    setEditingRoomId(null);
+  };
+
   return (
     <nav className="space-y-1 mb-2">
       {navItems.map((item) => {
@@ -307,6 +350,154 @@ function MainNavigation({
                 {item.label}
               </div>
             </button>
+          );
+        }
+
+        if (item.id === "study") {
+          return (
+            <div key={item.id} className="relative group/study space-y-1">
+              <div
+                className={`w-full h-[42px] px-3 rounded-xl flex items-center justify-between text-sm font-medium transition-all duration-150 border ${
+                  isActive
+                    ? "bg-white/[0.08] text-white font-semibold border-white/[0.08] shadow-sm"
+                    : "border-transparent text-white/60 hover:text-white/90 hover:bg-white/[0.04]"
+                }`}
+              >
+                <button
+                  onClick={() => {
+                    setActivePage(item.id as Page);
+                    setActiveConvId(null);
+                    setMobileSidebarOpen(false);
+                  }}
+                  className="flex items-center gap-3 flex-1 text-left truncate cursor-pointer py-1.5"
+                >
+                  <Icon size={18} className={isActive ? "text-indigo-400" : "text-white/50"} />
+                  <span className="truncate">{item.label}</span>
+                </button>
+
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActivePage("study");
+                      setActiveConvId(null);
+                      onNewStudyRoom?.();
+                      setMobileSidebarOpen(false);
+                    }}
+                    className="p-1 rounded-md hover:bg-white/15 text-white/60 hover:text-white transition-colors cursor-pointer"
+                    title="New Study Room (+)"
+                  >
+                    <Plus size={14} />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowStudyDropdown(!showStudyDropdown);
+                    }}
+                    className="p-1 rounded-md hover:bg-white/15 text-white/60 hover:text-white transition-colors cursor-pointer"
+                    title="Recent Study Rooms History"
+                  >
+                    <ChevronDown size={14} className={`transition-transform duration-200 ${showStudyDropdown ? "rotate-180 text-indigo-400" : ""}`} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Dropdown Menu for Recent Study Room History */}
+              {showStudyDropdown && (
+                <div className="mx-1 p-2 rounded-xl bg-[#0b132b]/95 border border-white/15 shadow-2xl backdrop-blur-2xl space-y-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="px-2 py-1 text-[10px] font-semibold text-white/50 tracking-wider uppercase border-b border-white/10 pb-1.5">
+                    <span>STUDY ROOM HISTORY</span>
+                  </div>
+                  <div className="max-h-48 overflow-y-auto space-y-0.5 pt-1">
+                    {studyRooms && studyRooms.length > 0 ? (
+                      studyRooms.map((room) => (
+                        <div key={room.id}>
+                          {editingRoomId === room.id ? (
+                            <div
+                              className="w-full px-2 py-1 rounded-lg text-xs flex items-center gap-1 bg-white/10 border border-indigo-500/40"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <input
+                                type="text"
+                                value={editRoomTitleInput}
+                                onChange={(e) => setEditRoomTitleInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") handleSaveRoomTitle(room.id, e);
+                                  if (e.key === "Escape") setEditingRoomId(null);
+                                }}
+                                className="bg-transparent text-xs text-white outline-none flex-1 min-w-0 px-1"
+                                autoFocus
+                              />
+                              <button
+                                onClick={(e) => handleSaveRoomTitle(room.id, e)}
+                                className="p-1 text-emerald-400 hover:text-emerald-300 transition-colors"
+                                title="Save"
+                              >
+                                <Check size={12} />
+                              </button>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); setEditingRoomId(null); }}
+                                className="p-1 text-white/40 hover:text-white transition-colors"
+                                title="Cancel"
+                              >
+                                <X size={12} />
+                              </button>
+                            </div>
+                          ) : (
+                            <div
+                              onClick={() => {
+                                setActivePage("study");
+                                onSelectStudyRoom?.(room.id);
+                                setShowStudyDropdown(false);
+                                setMobileSidebarOpen(false);
+                              }}
+                              className={`w-full px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between cursor-pointer transition-all group/room ${
+                                activeStudyRoomId === room.id
+                                  ? "bg-indigo-600/30 text-indigo-200 font-medium border border-indigo-500/30"
+                                  : "text-white/70 hover:bg-white/[0.08] hover:text-white border border-transparent"
+                              }`}
+                            >
+                              <span className="truncate font-medium flex-1 mr-2">{room.title}</span>
+                              <div className="flex items-center gap-1 opacity-0 group-hover/room:opacity-100 transition-opacity">
+                                {onRenameStudyRoom && (
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setEditingRoomId(room.id);
+                                      setEditRoomTitleInput(room.title);
+                                    }}
+                                    className="p-1 rounded hover:bg-white/10 text-white/40 hover:text-indigo-300 transition-colors cursor-pointer"
+                                    title="Rename Study Room"
+                                  >
+                                    <Pencil size={12} />
+                                  </button>
+                                )}
+                                {onDeleteStudyRoom && (
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onDeleteStudyRoom(room.id, e);
+                                    }}
+                                    className="p-1 rounded hover:bg-red-500/20 text-white/40 hover:text-red-400 transition-colors cursor-pointer"
+                                    title="Delete Study Room"
+                                  >
+                                    <Trash2 size={12} />
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-2 py-3 text-[11px] text-white/40 text-center">
+                        No recent study rooms.<br />Click <b>+</b> to create one.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           );
         }
 

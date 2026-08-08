@@ -1,17 +1,98 @@
 [
   {
-    "id": "08c03bc7-b6fa-4010-be2a-84e34c7f5783",
-    "title": "Aadhaar Card Retrieval Assistance",
+    "id": "f4735921-4cad-4cd4-bb06-8f2d2119d098",
+    "title": "What's Your Name?",
     "messages": [
       {
         "role": "user",
-        "content": "Find my Aadhaar card",
-        "timestamp": "2026-08-08T14:21:55.233884"
+        "content": "what is my name",
+        "timestamp": "2026-08-08T14:37:08.319907"
       },
       {
         "role": "assistant",
-        "content": "📄 **Document File Found:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `91.3 KB`\n\n🖼️ **Image Preview:**\n\n![b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n📥 [**Click Here to View / Download Full Resolution Image**](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n---\n\n### 🤖 AI Analysis\n\n**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 0110 1696 3\n- **Aadhaar Number:** 2601 9471 5892\n- **Visible Text:** \n  - \"Your Aadhaar\"\n  - \"Aadhaar Number\"\n  - \"Information\"\n- **Personal Information:**\n  - Name: [Not visible]\n  - Address: [Not visible]\n- **QR Code:** Present, containing encoded information\n- **Language:** Kannada and English\n- **Additional Information:** \n  - Contact details for UIDAI\n  - Instructions related to Aadhaar usage\n\nThis description provides a comprehensive overview for search indexing purposes.\n\n---\n\n### 📊 Document Details & Analyzed Content\n\n- **File Name:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n- **Category:** `Personal Documents`\n- **AI Identified As:** ***Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011*\n- **Status:** Permanently stored in your knowledge base memory\n",
-        "timestamp": "2026-08-08T14:21:56.938227",
+        "content": "📚 **Found Matching Documents:**\n\n📄 **Document File Found:** `Nelluru_Jaswanth_Resume.pdf`\n📂 **Category:** `Resume` | 📦 **Size:** `79.2 KB`\n\n📥 [**Click Here to View / Download Direct Document File**](http://localhost:8000/api/documents/file/0f3d54d5-f147-4939-ace8-7901e2fad2d6)\n\n---\n\n### 🤖 AI Analysis\n\n**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Contact Information:** \n  - Phone: +91 9440552825\n  - Email: nellurujaswanth2004@gmail.com\n  - LinkedIn: [Link not provided]\n  - GitHub: [Link not provided]\n- **Education:**\n  - B.Tech in Computer Science and Engineering (2023 – 2027) at N.B.K.R. Institute of Science and Technology, Tirupati, CGPA: 7.5/10\n  - Intermediate (10+2) – MPC (2021 – 2023) at V.B.R. Junior College, Nellore, Percentage: 96%\n- **Internships:**\n  - Full Stack Web Development Intern (Feb 2025 – May 2025)\n  - Java Full Stack Developer Intern (Dec 2025 – Mar 2026)\n- **Projects:**\n  - AI-Powered Mobile App for Food Safety & Hygiene Monitoring\n  - Course Automation AI Agent\n  - Fee Queue Management System\n- **Achievements:**\n  - 1st Place – Cybersecurity CTF Hackathon (2025)\n  - 2nd Prize – Chatbot Buildathon, TECHTATVA 2K25\n  - 4th Place – VaultSphere Hackathon\n- **Leadership Role:** Vice President (Sales), AIESEC ConnectWorks Leadership Program (2025)\n- **Problem Solving:** Solved 500+ DSA problems across various platforms\n- **Languages:** English, Telugu, Hindi\n\n**Main Topics:**\n- Computer Science Education\n- Technical Skills in Software Development\n- Full Stack Development\n- AI and Automation Technologies\n- Internship Experience\n- Project Development\n- Achievements in Competitions and Leadership Roles\n\n**Search\n\n---\n\n### 📊 Document Details & Analyzed Content\n\n- NELLURU JASWANTH\n- Naidupeta, Tirupati District, Andhra Pradesh, India\n- +91 9440552825⋄nellurujaswanth2004@gmail.com⋄LinkedIn⋄GitHub\n- **PROFESSIONAL SUMMARY**\n- Computer Science undergraduate skilled in Java, Spring Framework, Spring Boot, React.js, REST APIs, Git, scalable\n- backend services, CI/CD fundamentals, DevSecOps concepts, debugging, troubleshooting, OOP, data structures, and\n- full-stack SaaS application development with exposure to AI/LLM concepts and data-driven systems.\n- **EDUCATION**\n- B.Tech in Computer Science and Engineering2023 – 2027\n- N.B.K.R. Institute of Science and Technology, Tirupati CGPA: 7.5/10\n- Intermediate (10+2) – MPC2021 – 2023\n- V.B.R. Junior College, Nellore Percentage: 96%\n- **TECHNICAL SKILLS**\n- LanguagesJava, Python, C\n- FrameworksSpring Framework, Spring Boot, React.js, Flutter\n- Core CSOOP, Data Structures, Algorithms, DBMS, SDLC\n- BackendREST APIs, Backend Services, Debugging, Troubleshooting\n- DatabasesMySQL, NoSQL, Data Processing\n- ToolsGit, GitHub, CI/CD Fundamentals, Version Control\n- AI & TechAI Agents, LLM Concepts, Automation Workflows\n- DevelopmentFull-Stack SaaS Applications, Microservices Basics\n- INTERNSHIPS\n- **Full Stack Web Development Intern — CertificateFeb 2025 – May 2025**\n- Developed responsive frontend and backend modules using modern web technologies, REST APIs, Git workflows,\n- debugging, and scalable application development practices.\n- **Java Full Stack Developer Intern — CertificateDec 2025 – Mar 2026**\n- Built Java backend services using Spring Boot and React.js while working on API integration, performance optimiza-\n- tion, troubleshooting, and clean coding practices.\n- **PROJECTS**\n- AI-Powered Mobile App for Food Safety & Hygiene Monitoring— Flutter GitHub\n\n\n---\n\n📄 **Document File Found:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `91.3 KB`\n\n🖼️ **Image Preview:**\n\n![b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n📥 [**Click Here to View / Download Full Resolution Image**](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n---\n\n### 🤖 AI Analysis\n\n**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 0110 1696 3\n- **Aadhaar Number:** 2601 9471 5892\n- **Visible Text:** \n  - \"Your Aadhaar\"\n  - \"Aadhaar Number\"\n  - \"Information\"\n- **Personal Information:**\n  - Name: [Not visible]\n  - Address: [Not visible]\n- **QR Code:** Present, containing encoded information\n- **Language:** Kannada and English\n- **Additional Information:** \n  - Contact details for UIDAI\n  - Instructions related to Aadhaar usage\n\nThis description provides a comprehensive overview for search indexing purposes.\n\n---\n\n### 📊 Document Details & Analyzed Content\n\n- **File Name:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n- **Category:** `Personal Documents`\n- **AI Identified As:** ***Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011*\n- **Status:** Permanently stored in your knowledge base memory\n\n\n---\n\n📄 **Document File Found:** `myimg.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `48.4 KB`\n\n🖼️ **Image Preview:**\n\n![myimg.jpeg](http://localhost:8000/api/documents/file/bf03c416-08a8-4524-9df8-28f2107853b4)\n\n📥 [**Click Here to View / Download Full Resolution Image**](http://localhost:8000/api/documents/file/bf03c416-08a8-4524-9df8-28f2107853b4)\n\n---\n\n💡 **Stored Memory Note:** *\"this is my passport size image\"*\n\n### 🤖 AI Analysis\n\nDocument Type: Photo ID\n\nKey Details:\n- The image is a passport-sized photograph of a young male.\n- The individual has short, curly black hair and is wearing glasses.\n- He is dressed in a dark shirt.\n- The background is a plain light color, typical for official identification photos.\n- There are no visible names, numbers, dates, or organization names in the image. \n\nThis photo appears to be suitable for use in various identification documents or applications.\n\n---\n\n### 📊 Document Details & Analyzed Content\n\n- **File Name:** `myimg.jpeg`\n- **Category:** `Personal Documents`\n- **User Description:** *this is my passport size image*\n- **AI Identified As:** *Document Type: Photo ID\n\nKey Details:\n- The image is a passport-sized photograph of a young male.\n- The individual has short, curly black hair and is wearing glasses.\n- He is dressed in a dark shirt.\n*\n- **Status:** Permanently stored in your knowledge base memory\n\n\n---\n\n📄 **Document File Found:** `WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg`\n📂 **Category:** `Resume` | 📦 **Size:** `128.0 KB`\n\n🖼️ **Image Preview:**\n\n![WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg](http://localhost:8000/api/documents/file/20d0ef38-8f67-48eb-99b4-6417caf38ddb)\n\n📥 [**Click Here to View / Download Full Resolution Image**](http://localhost:8000/api/documents/file/20d0ef38-8f67-48eb-99b4-6417caf38ddb)\n\n---\n\n💡 **Stored Memory Note:** *\"this is my 10th marklist\"*\n\n### 🤖 AI Analysis\n\n**Document Type:** Secondary School Certificate\n\n**Key Details:**\n- **Board:** Board of Secondary Education, Andhra Pradesh, India\n- **Name of Student:** Nelluru Jaswanth\n- **Mother's Name:** Nelluru Padmawathi\n- **Roll Number:** 211710169\n- **Date of Birth:** 12/08/2006\n- **Examination Year:** June 2021\n- **Subjects and Marks:**\n  - First Language: Telugu/Sanskrit - One Zero Seven\n  - Second Language: English - One Zero Zero\n  - Mathematics - One Zero Zero\n  - Science - One Zero Zero\n  - Social Studies - One Zero Zero\n- **Total Marks:** 593\n- **Grand Total:** 593\n- **Certification Note:** The candidate secured the following percentage of marks.\n- **Document Year:** 2021\n\nThis document serves as an official record of the student's secondary school examination results.\n\n---\n\n### 📊 Document Details & Analyzed Content\n\n- **File Name:** `WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg`\n- **Category:** `Resume`\n- **User Description:** *this is my 10th marklist*\n- **AI Identified As:** ***Document Type:** Secondary School Certificate\n\n**Key Details:**\n- **Board:** Board of Secondary Education, Andhra Pradesh, India\n- **Name of Student:** Nelluru Jaswanth\n- **Mother's Name:** Nelluru *\n- **Status:** Permanently stored in your knowledge base memory\n\n\n---",
+        "timestamp": "2026-08-08T14:37:12.314803",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Contact Information:** \n  - Phone: +91 9440552825\n  - ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      }
+    ],
+    "created_at": "2026-08-08T14:37:08.293812",
+    "updated_at": "2026-08-08T14:37:12.314810",
+    "last_message_at": "2026-08-08T14:37:12.314812"
+  },
+  {
+    "id": "770c8ca4-04f7-469f-b1cb-ff2ddc9d0e3a",
+    "title": "Identity Inquiry",
+    "messages": [
+      {
+        "role": "user",
+        "content": "what is my name",
+        "timestamp": "2026-08-08T14:42:07.775659"
+      },
+      {
+        "role": "assistant",
+        "content": "Your name is Jaswanth.",
+        "timestamp": "2026-08-08T14:42:11.929859",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Cont",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my father name?",
+        "timestamp": "2026-08-08T14:42:26.237739"
+      },
+      {
+        "role": "assistant",
+        "content": "Your father's name is not provided in the available information.",
+        "timestamp": "2026-08-08T14:42:28.722085",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Cont",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "check in my aadhar and tellme",
+        "timestamp": "2026-08-08T14:42:47.507187"
+      },
+      {
+        "role": "assistant",
+        "content": "📄 **Document File:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `91.3 KB`\n\n🖼️ **Image Preview:**\n\n![b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n📥 [**Click Here to View / Download Full Image**](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)",
+        "timestamp": "2026-08-08T14:42:49.276608",
         "sources": [
           {
             "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
@@ -20,10 +101,618 @@
             "relevance": 1.0
           }
         ]
+      },
+      {
+        "role": "user",
+        "content": "what is my date of birth?",
+        "timestamp": "2026-08-08T14:45:54.113206"
+      },
+      {
+        "role": "assistant",
+        "content": "Your date of birth is 12/08/2006, as mentioned in your 10th marklist.",
+        "timestamp": "2026-08-08T14:45:56.673927",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my father name?",
+        "timestamp": "2026-08-08T14:46:12.028304"
+      },
+      {
+        "role": "assistant",
+        "content": "Your father's name is not provided in any of your current documents. I checked the following documents:\n\n1. **Resume**\n2. **10th Marklist**\n3. **Aadhaar Card**\n\nPlease share any document that contains this information, and I can remember it for you.",
+        "timestamp": "2026-08-08T14:46:14.811566",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my address?",
+        "timestamp": "2026-08-08T14:47:13.493826"
+      },
+      {
+        "role": "assistant",
+        "content": "Your address is not provided in any of your current documents. I checked the following documents:\n\n1. **Resume**\n2. **Aadhaar Card**\n3. **10th Marklist**\n\nPlease share any document that contains your address, and I can remember it for you.",
+        "timestamp": "2026-08-08T14:47:17.450798",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my aadhar number?",
+        "timestamp": "2026-08-08T14:49:10.365333"
+      },
+      {
+        "role": "assistant",
+        "content": "Your Aadhaar number is 2601 9471 5892, as mentioned in your Aadhaar card.",
+        "timestamp": "2026-08-08T14:49:13.022949",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my 10th roll number?",
+        "timestamp": "2026-08-08T14:49:38.051770"
+      },
+      {
+        "role": "assistant",
+        "content": "Your 10th roll number is 211710169, as stated in your 10th marklist.",
+        "timestamp": "2026-08-08T14:49:40.614190",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my father name?",
+        "timestamp": "2026-08-08T14:50:10.652353"
+      },
+      {
+        "role": "assistant",
+        "content": "Your father's name is Nelluru Ramanaiah, as noted in your saved personal memories.",
+        "timestamp": "2026-08-08T14:50:12.812235",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "no wrong",
+        "timestamp": "2026-08-08T14:50:22.039126"
+      },
+      {
+        "role": "assistant",
+        "content": "📚 **Found Matching Documents:**\n\n📄 **Document File:** `Nelluru_Jaswanth_Resume.pdf`\n📂 **Category:** `Resume` | 📦 **Size:** `79.2 KB`\n\n📥 [**Click Here to View / Download Document File**](http://localhost:8000/api/documents/file/0f3d54d5-f147-4939-ace8-7901e2fad2d6)\n\n---\n\n📄 **Document File:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `91.3 KB`\n\n🖼️ **Image Preview:**\n\n![b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n📥 [**Click Here to View / Download Full Image**](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n---\n\n📄 **Document File:** `myimg.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `48.4 KB`\n\n🖼️ **Image Preview:**\n\n![myimg.jpeg](http://localhost:8000/api/documents/file/bf03c416-08a8-4524-9df8-28f2107853b4)\n\n📥 [**Click Here to View / Download Full Image**](http://localhost:8000/api/documents/file/bf03c416-08a8-4524-9df8-28f2107853b4)\n\n💡 **Stored Memory Note:** *\"this is my passport size image\"*\n\n---",
+        "timestamp": "2026-08-08T14:50:22.706404",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, Andhra Pradesh, India\n- **Contact Information:** \n  - Phone: +91 9440552825\n  - ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my mail id?",
+        "timestamp": "2026-08-08T14:51:20.248085"
+      },
+      {
+        "role": "assistant",
+        "content": "Your email ID is nellurujaswanth2004@gmail.com, as mentioned in your resume.",
+        "timestamp": "2026-08-08T14:51:22.136905",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my mobile number?",
+        "timestamp": "2026-08-08T14:51:30.718242"
+      },
+      {
+        "role": "assistant",
+        "content": "Your mobile number is +91 9440552825, as stated in your resume.",
+        "timestamp": "2026-08-08T14:51:33.258816",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "git hub link?",
+        "timestamp": "2026-08-08T14:51:40.310398"
+      },
+      {
+        "role": "assistant",
+        "content": "The GitHub link is not provided in your resume. If you have a GitHub link, please share it so I can remember it for you.",
+        "timestamp": "2026-08-08T14:51:45.424809",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my father name?",
+        "timestamp": "2026-08-08T14:52:54.538723"
+      },
+      {
+        "role": "assistant",
+        "content": "Your father's name is Nelluru Ramanaiah, as noted in your saved personal memories.",
+        "timestamp": "2026-08-08T14:52:57.665926",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "no wrong check properly in my aadhar",
+        "timestamp": "2026-08-08T14:53:10.636301"
+      },
+      {
+        "role": "assistant",
+        "content": "📄 **Document File:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `91.3 KB`\n\n🖼️ **Image Preview:**\n\n![b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n📥 [**Click Here to View / Download Full Image**](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)",
+        "timestamp": "2026-08-08T14:53:12.508031",
+        "sources": [
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my father name?",
+        "timestamp": "2026-08-08T14:58:35.383912"
+      },
+      {
+        "role": "assistant",
+        "content": "Your father's name is Nelluru Balaji, as stated in your 10th marklist.",
+        "timestamp": "2026-08-08T14:58:38.262874",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my address?",
+        "timestamp": "2026-08-08T15:00:40.178605"
+      },
+      {
+        "role": "assistant",
+        "content": "Your address is Naidupeta, Tirupati District, Andhra Pradesh, India, as mentioned in your resume.",
+        "timestamp": "2026-08-08T15:00:44.031186",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "bf03c416-08a8-4524-9df8-28f2107853b4",
+            "docName": "myimg.jpeg",
+            "snippet": "this is my passport size image",
+            "relevance": 1.0
+          },
+          {
+            "docId": "20d0ef38-8f67-48eb-99b4-6417caf38ddb",
+            "docName": "WhatsApp Image 2026-07-10 at 11.28.02 PM.jpeg",
+            "snippet": "this is my 10th marklist",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "what is my pincode?",
+        "timestamp": "2026-08-08T15:02:37.936859"
+      },
+      {
+        "role": "assistant",
+        "content": "Your PIN code is 524126, as found in your Aadhaar card.",
+        "timestamp": "2026-08-08T15:02:44.826545",
+        "sources": [
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "my github link?",
+        "timestamp": "2026-08-08T15:03:01.853292"
+      },
+      {
+        "role": "assistant",
+        "content": "Your GitHub link is not provided in any of your uploaded documents. I checked your resume, but it does not include a GitHub link. If you have it, please share it so I can remember it.",
+        "timestamp": "2026-08-08T15:03:05.010023",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "my github link?",
+        "timestamp": "2026-08-08T15:10:45.151137"
+      },
+      {
+        "role": "assistant",
+        "content": "Your GitHub link is not found in your current documents. I checked your resume, but it does not include a GitHub link. If you have it, please share it so I can remember it.",
+        "timestamp": "2026-08-08T15:10:49.268671",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type:** Resume\n\n**Key Entities:**\n- **Name:** Nelluru Jaswanth\n- **Location:** Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "my github link?",
+        "timestamp": "2026-08-08T15:12:46.111654"
+      },
+      {
+        "role": "assistant",
+        "content": "Your GitHub link is not present in any of your uploaded documents. I checked your resume, but it does not include a GitHub link. Please share it if you have it, and I can remember it for you.",
+        "timestamp": "2026-08-08T15:12:47.892266",
+        "sources": [
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** ",
+            "relevance": 1.0
+          },
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type**: Resume\n\n**Key Entities**:\n- **Name**: Nelluru Jaswanth\n- **Location**: Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          }
+        ]
       }
     ],
-    "created_at": "2026-08-08T14:21:55.207147",
-    "updated_at": "2026-08-08T14:21:56.938235",
-    "last_message_at": "2026-08-08T14:21:56.938237"
+    "created_at": "2026-08-08T14:42:07.752457",
+    "updated_at": "2026-08-08T15:12:47.892275",
+    "last_message_at": "2026-08-08T15:12:47.892277"
+  },
+  {
+    "id": "e997d3bc-aba4-4f38-825c-870427888fe4",
+    "title": "Sharing My GitHub Profile",
+    "messages": [
+      {
+        "role": "user",
+        "content": "my github link?",
+        "timestamp": "2026-08-08T15:14:50.661361"
+      },
+      {
+        "role": "assistant",
+        "content": "Your GitHub profile link is [GitHub Profile](https://github.com/Jaswanth-arjun).",
+        "timestamp": "2026-08-08T15:14:56.445924",
+        "sources": [
+          {
+            "docId": "0f3d54d5-f147-4939-ace8-7901e2fad2d6",
+            "docName": "Nelluru_Jaswanth_Resume.pdf",
+            "snippet": "**Document Type**: Resume\n\n**Key Entities**:\n- **Name**: Nelluru Jaswanth\n- **Location**: Naidupeta, Tirupati District, ",
+            "relevance": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "my linkdin profile?",
+        "timestamp": "2026-08-08T15:15:23.726492"
+      },
+      {
+        "role": "assistant",
+        "content": "Your LinkedIn profile link is [LinkedIn Profile](https://www.linkedin.com/in/nelluru-jaswanth-a611ba2b3/).",
+        "timestamp": "2026-08-08T15:15:27.031518",
+        "sources": []
+      }
+    ],
+    "created_at": "2026-08-08T15:14:50.631902",
+    "updated_at": "2026-08-08T15:15:27.031526",
+    "last_message_at": "2026-08-08T15:15:27.031528"
   }
 ]

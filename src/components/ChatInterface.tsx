@@ -477,7 +477,19 @@ function MessageBubble({
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
         ) : (
           <div className="markdown-content text-sm text-white/80">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                a: ({ node, ...props }) => (
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 underline hover:text-cyan-300 font-medium"
+                    {...props}
+                  />
+                ),
+              }}
+            >
               {message.content}
             </ReactMarkdown>
           </div>

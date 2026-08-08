@@ -254,18 +254,52 @@ def extract_text(file_path: str, content_type: str = "") -> str:
 
     if content_type == "application/pdf" or file_str.lower().endswith(".pdf"):
         try:
-            import PyPDF2
-            with open(file_path, "rb") as f:
-                reader = PyPDF2.PdfReader(f)
-                for page in reader.pages:
-                    page_text = page.extract_text()
-                    if page_text:
-                        text += page_text + "\n"
+            import pypdf
+            reader = pypdf.PdfReader(file_path)
+            extracted_pages = []
+            links_info = []
+            seen_uris = set()
+            
+            for page in reader.pages:
+                page_text = page.extract_text() or ""
+                extracted_pages.append(page_text)
+                if "/Annots" in page:
+                    for annot in page["/Annots"]:
+                        try:
+                            obj = annot.get_object()
+                            if "/A" in obj and "/URI" in obj["/A"]:
+                                uri = str(obj["/A"]["/URI"]).strip()
+                                if uri and uri not in seen_uris:
+                                    seen_uris.add(uri)
+                                    link_label = "Link"
+                                    if "linkedin.com" in uri.lower():
+                                        link_label = "LinkedIn Profile Link"
+                                    elif "github.com" in uri.lower():
+                                        parts = uri.rstrip("/").split("github.com/")
+                                        if len(parts) > 1 and "/" in parts[1]:
+                                            repo_name = parts[1].split("/")[1].replace(".git", "")
+                                            link_label = f"GitHub Project Repository ({repo_name})"
+                                        else:
+                                            link_label = "GitHub Profile Link"
+                                    elif "drive.google.com" in uri.lower():
+                                        link_label = "Certificate / Drive Document Link"
+                                    elif uri.startswith("mailto:"):
+                                        link_label = "Email"
+                                    elif uri.startswith("tel:"):
+                                        link_label = "Phone Number"
+                                    links_info.append((link_label, uri))
+                        except Exception:
+                            pass
+            
+            text = "\n".join(extracted_pages)
+            if links_info:
+                text += "\n\n🔗 Embedded Links & Profile URLs in Document:\n" + "\n".join([f"- {lbl}: {u}" for lbl, u in links_info])
         except Exception:
             try:
-                import pdfplumber
-                with pdfplumber.open(file_path) as pdf:
-                    for page in pdf.pages:
+                import PyPDF2
+                with open(file_path, "rb") as f:
+                    reader = PyPDF2.PdfReader(f)
+                    for page in reader.pages:
                         page_text = page.extract_text()
                         if page_text:
                             text += page_text + "\n"
@@ -596,6 +630,63 @@ def backfill_image_ocr():
         print("✅ Finished updating image OCR index in documents.json.")
 
 
+def backfill_pdf_hyperlinks():
+    """Re-extract PDF text and embedded hyperlinks for existing PDF documents."""
+    docs = load_documents()
+    updated = False
+    for d in docs:
+        filename = d.get("filename", "")
+        file_path = d.get("file_path", "")
+        if filename.lower().endswith(".pdf") and file_path and Path(file_path).exists():
+            curr_text = d.get("extracted_text", "")
+            curr_ai = d.get("ai_description", "")
+            if "Embedded Links" not in curr_text or "LinkedIn Profile Link" not in curr_text or "Link not provided" in curr_ai:
+                print(f"🔗 Re-extracting text & embedded hyperlinks for PDF: {filename}...")
+                new_text = extract_text(file_path, "application/pdf")
+                if new_text:
+                    d["extracted_text"] = new_text
+                    
+                    if openai_client:
+                        ai_desc = ai_analyze_content(filename, new_text, file_path)
+                        if ai_desc:
+                            d["ai_description"] = ai_desc
+                            d["summary"] = ai_desc[:400]
+                    
+                    if collection:
+                        try:
+                            doc_id = d["id"]
+                            meta_base = {
+                                "doc_id": doc_id,
+                                "filename": filename,
+                                "category": d.get("category", "Resume"),
+                                "user_note": d.get("user_note", ""),
+                                "ai_description": d.get("ai_description", "")[:500],
+                            }
+                            chunks = chunk_text(new_text)
+                            for i, chunk in enumerate(chunks):
+                                collection.upsert(
+                                    ids=[f"{doc_id}_chunk_{i}"],
+                                    documents=[chunk],
+                                    metadatas=[{**meta_base, "entry_type": "content", "chunk_index": str(i)}],
+                                    embeddings=[get_embedding(chunk)],
+                                )
+                            if d.get("ai_description"):
+                                collection.upsert(
+                                    ids=[f"{doc_id}_ai"],
+                                    documents=[d["ai_description"]],
+                                    metadatas=[{**meta_base, "entry_type": "ai_analysis"}],
+                                    embeddings=[get_embedding(d["ai_description"])],
+                                )
+                        except Exception as e:
+                            print(f"Chroma PDF hyperlink update warning: {e}")
+                    
+                    updated = True
+
+    if updated:
+        save_documents(docs)
+        print("✅ Finished updating PDF hyperlinks in documents.json and ChromaDB.")
+
+
 @app.on_event("startup")
 async def on_startup():
     try:
@@ -606,6 +697,10 @@ async def on_startup():
         backfill_image_ocr()
     except Exception as e:
         print(f"⚠️ Image OCR backfill notice: {e}")
+    try:
+        backfill_pdf_hyperlinks()
+    except Exception as e:
+        print(f"⚠️ PDF hyperlinks backfill notice: {e}")
     try:
         backfill_ai_descriptions()
     except Exception as e:
@@ -1030,6 +1125,10 @@ async def chat(request: ChatRequest):
         "license": ["licence", "driving license", "dl"],
         "voter": ["voter id", "election card", "epic"],
         "photo": ["photograph", "picture", "image", "selfie"],
+        "github": ["github", "git", "repo", "repository", "code", "profile", "github link", "github profile"],
+        "linkedin": ["linkedin", "linked in", "profile", "social", "linkedin link", "linkedin profile"],
+        "link": ["url", "link", "links", "hyperlink", "github", "linkedin", "profile", "project link", "project links", "urls"],
+        "project": ["projects", "github", "repo", "repository", "app", "system", "project link", "project links"],
     }
     expanded_keywords = list(keywords)
     for kw in keywords:
@@ -1106,7 +1205,8 @@ async def chat(request: ChatRequest):
     question_triggers = [
         "what", "who", "where", "when", "why", "how", "tell me", "can you",
         "do i", "is there", "what's", "my name", "my phone", "my email",
-        "my age", "my address", "my skills", "who am i", "hi", "hello", "hey"
+        "my age", "my address", "my skills", "who am i", "hi", "hello", "hey",
+        "github", "linkedin", "link", "links", "url", "urls", "profile", "project link", "project links", "repository"
     ]
     is_question_query = any(qt in message_lower for qt in question_triggers) or "?" in message
 
@@ -1136,7 +1236,7 @@ async def chat(request: ChatRequest):
             if extracted.startswith("[Image File:"):
                 extracted = ""
             else:
-                extracted = extracted[:1500]
+                extracted = extracted[:6000]
 
             doc_entry = f"📄 Document File: '{fname}' (Category: {cat})\n"
             if user_note:
@@ -1176,11 +1276,13 @@ async def chat(request: ChatRequest):
                         "content": (
                             "You are Nuvio, an intelligent Personal AI Assistant. "
                             "You have full access to the user's personal knowledge base containing all their uploaded documents (Resumes, Marklists, Identity Cards, Photos, Certificates) and saved memories. "
-                            "When the user asks any personal question (e.g. about their name, father's name, mother's name, DOB, roll number, address, phone number, skills, marks, etc.):\n"
-                            "1. Search across ALL provided documents and memories to find the exact answer.\n"
-                            "2. Answer directly, accurately, and concisely. Mention which document (e.g., 10th marklist, Resume, Aadhaar card) the information came from.\n"
-                            "3. If the requested information is NOT present in any of their uploaded documents or memories, state clearly that it is not found in their current documents, list the document names checked, and invite them to share it so you can remember it.\n"
-                            "4. Keep your answer direct and helpful. Do NOT dump raw file schemas or unrequested file lists unless explicitly asked."
+                            "When the user asks any personal question or asks for links (such as GitHub profile, LinkedIn profile, project links, certificates, contact info, email, phone, name, DOB, etc.):\n"
+                            "1. Search across ALL provided documents and memories to find the exact answer and URLs.\n"
+                            "2. Answer directly, accurately, and concisely. Mention which document (e.g., Resume, 10th marklist) the information came from.\n"
+                            "3. CRITICAL FOR LINKS & URLs: Always format all URLs as clickable Markdown links `[Link Title](URL)` (e.g. [GitHub Profile](https://github.com/Jaswanth-arjun), [LinkedIn Profile](https://www.linkedin.com/in/nelluru-jaswanth-a611ba2b3/)). Never omit URLs or say 'link not provided' if the embedded URL exists in context.\n"
+                            "4. If the user asks for specific links like 'my github link' or 'linkedin link', respond directly with that exact profile link nicely formatted.\n"
+                            "5. If the requested information is NOT present in any of their uploaded documents or memories, state clearly that it is not found in their current documents, list the document names checked, and invite them to share it so you can remember it.\n"
+                            "6. Keep your answer direct and helpful. Do NOT dump raw file schemas or unrequested file lists unless explicitly asked."
                         )
                     },
                     {"role": "system", "content": f"User's Complete Personal Knowledge Base Context:\n\n{context_text}"},
@@ -1203,7 +1305,7 @@ async def chat(request: ChatRequest):
                     
                     doc_relevance = []
                     for d in all_docs:
-                        d_text = (f"{d.get('filename','')} {d.get('user_note','')} {d.get('category','')} {' '.join(d.get('tags',[]))} {d.get('ai_description','')} {d.get('extracted_text','')[:1500]}").lower()
+                        d_text = (f"{d.get('filename','')} {d.get('user_note','')} {d.get('category','')} {' '.join(d.get('tags',[]))} {d.get('ai_description','')} {d.get('extracted_text','')[:6000]}").lower()
                         match_count = sum(1 for tok in search_tokens if tok in d_text)
                         
                         # Extra weight if document filename or category is explicitly named in LLM answer
