@@ -202,6 +202,50 @@ else:
     print("⚠️ LLM API Key not provided or invalid. Running in Local RAG mode.")
 
 
+# ─── Multi-Engine Image OCR ───────────────────────────────
+def extract_image_ocr(file_path: str) -> str:
+    """Extract printed text from images using RapidOCR, EasyOCR, or PyTesseract."""
+    if not file_path or not Path(file_path).exists():
+        return ""
+
+    # 1. Try RapidOCR (Fast, accurate CPU OCR)
+    try:
+        from rapidocr_onnxruntime import RapidOCR
+        engine = RapidOCR()
+        result, _ = engine(file_path)
+        if result:
+            lines = [item[1].strip() for item in result if item[1].strip()]
+            if lines:
+                return "\n".join(lines)
+    except Exception as e:
+        print(f"⚠️ RapidOCR error: {e}")
+
+    # 2. Try EasyOCR
+    try:
+        import easyocr
+        reader = easyocr.Reader(['en'], gpu=False)
+        res = reader.readtext(file_path, detail=0)
+        if res:
+            lines = [str(r).strip() for r in res if str(r).strip()]
+            if lines:
+                return "\n".join(lines)
+    except Exception as e:
+        print(f"⚠️ EasyOCR error: {e}")
+
+    # 3. Try PyTesseract
+    try:
+        import pytesseract
+        from PIL import Image
+        img = Image.open(file_path)
+        extracted = pytesseract.image_to_string(img).strip()
+        if extracted:
+            return extracted
+    except Exception as e:
+        print(f"⚠️ PyTesseract error: {e}")
+
+    return ""
+
+
 # ─── Text Extraction ────────────────────────────────────────
 def extract_text(file_path: str, content_type: str = "") -> str:
     """Extract text from uploaded file or image."""
@@ -247,16 +291,10 @@ def extract_text(file_path: str, content_type: str = "") -> str:
             text = f.read()
 
     elif (content_type and content_type.startswith("image/")) or any(file_str.lower().endswith(ext) for ext in [".png", ".jpg", ".jpeg", ".webp", ".gif"]):
-        try:
-            import pytesseract
-            from PIL import Image
-            img = Image.open(file_path)
-            extracted_ocr = pytesseract.image_to_string(img).strip()
-            if extracted_ocr:
-                text = f"[Image OCR Content]\n{extracted_ocr}"
-            else:
-                text = f"[Image File: {Path(file_path).name}]"
-        except Exception:
+        ocr_text = extract_image_ocr(file_path)
+        if ocr_text:
+            text = f"[Image OCR Content]\n{ocr_text}"
+        else:
             text = f"[Image File: {Path(file_path).name}]"
 
     return text.strip()
@@ -499,12 +537,75 @@ def backfill_ai_descriptions():
         print(f"✅ Backfilled {backfilled} document(s) with AI descriptions.")
 
 
+def backfill_image_ocr():
+    """Run multi-engine OCR on all image documents that lack extracted OCR text."""
+    docs = load_documents()
+    updated = False
+    for d in docs:
+        filename = d.get("filename", "")
+        file_path = d.get("file_path", "")
+        is_image = any(filename.lower().endswith(ext) for ext in [".png", ".jpg", ".jpeg", ".webp", ".gif"])
+        
+        if is_image and file_path and Path(file_path).exists():
+            curr_text = d.get("extracted_text", "")
+            # Re-run OCR if missing or starts with generic fallback tag
+            if not curr_text or curr_text.startswith("[Image File:"):
+                print(f"🔍 Running multi-engine OCR scan on: {filename}...")
+                ocr_text = extract_image_ocr(file_path)
+                if ocr_text:
+                    d["extracted_text"] = f"[Image OCR Content]\n{ocr_text}"
+                    print(f"✅ OCR successfully extracted {len(ocr_text.splitlines())} text lines from {filename}")
+                    
+                    # Update AI description with extracted OCR text
+                    if openai_client:
+                        ai_desc = ai_analyze_content(filename, d["extracted_text"], file_path)
+                        if ai_desc:
+                            d["ai_description"] = ai_desc
+                            d["summary"] = ai_desc[:400]
+                    
+                    new_cat, new_tags = auto_categorize(filename, f"{ocr_text} {d.get('ai_description', '')}")
+                    if d.get("category") in ("Miscellaneous", ""):
+                        d["category"] = new_cat
+                    d["tags"] = list(set(d.get("tags", []) + new_tags))
+                    
+                    # Update ChromaDB vector index
+                    if collection:
+                        try:
+                            doc_id = d["id"]
+                            meta = {
+                                "doc_id": doc_id,
+                                "filename": filename,
+                                "category": d["category"],
+                                "user_note": d.get("user_note", ""),
+                                "ai_description": d.get("ai_description", "")[:500],
+                                "entry_type": "content",
+                            }
+                            collection.upsert(
+                                ids=[f"{doc_id}_chunk_0"],
+                                documents=[d["extracted_text"]],
+                                metadatas=[meta],
+                                embeddings=[get_embedding(d["extracted_text"])],
+                            )
+                        except Exception as e:
+                            print(f"Chroma image OCR update warning: {e}")
+                    
+                    updated = True
+
+    if updated:
+        save_documents(docs)
+        print("✅ Finished updating image OCR index in documents.json.")
+
+
 @app.on_event("startup")
 async def on_startup():
     try:
         sync_uploaded_files()
     except Exception as e:
         print(f"⚠️ File sync notice: {e}")
+    try:
+        backfill_image_ocr()
+    except Exception as e:
+        print(f"⚠️ Image OCR backfill notice: {e}")
     try:
         backfill_ai_descriptions()
     except Exception as e:
