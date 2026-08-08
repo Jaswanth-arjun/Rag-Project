@@ -11,6 +11,21 @@ import { Sidebar, Page, navItems } from "@/components/Sidebar";
 import { SettingsPage } from "@/components/SettingsPage";
 
 const API = "http://localhost:8000";
+const ALT_API = "http://127.0.0.1:8000";
+
+async function apiFetch(path: string, options?: RequestInit): Promise<Response> {
+  try {
+    const res = await fetch(`${API}${path}`, options);
+    return res;
+  } catch (err) {
+    try {
+      return await fetch(`${ALT_API}${path}`, options);
+    } catch {
+      throw err;
+    }
+  }
+}
+
 type Message = { role: "user" | "assistant"; text: string; sources?: { title: string; type: string; detail: string; docId?: string }[]; attachments?: { name: string }[] };
 type BackendDoc = { id: string; filename: string; category: string; user_note?: string; size?: number; uploaded_at?: string; file_path?: string };
 type BackendMem = { id: string; content: string; category?: string; created_at?: string; doc_id?: string; filename?: string };
@@ -61,13 +76,13 @@ export function NuvioApp() {
   const feedEnd = useRef<HTMLDivElement>(null);
 
   // Fetch real data from backend
-  const fetchDocs = useCallback(async () => { try { const r = await fetch(`${API}/api/documents`); if (r.ok) setRealDocs(await r.json()); } catch {} }, []);
-  const fetchMems = useCallback(async () => { try { const r = await fetch(`${API}/api/memories`); if (r.ok) setRealMemories(await r.json()); } catch {} }, []);
+  const fetchDocs = useCallback(async () => { try { const r = await apiFetch("/api/documents"); if (r.ok) setRealDocs(await r.json()); } catch {} }, []);
+  const fetchMems = useCallback(async () => { try { const r = await apiFetch("/api/memories"); if (r.ok) setRealMemories(await r.json()); } catch {} }, []);
   
   // Fetch conversations from backend
   const fetchConversations = useCallback(async () => {
     try {
-      const r = await fetch(`${API}/api/conversations`);
+      const r = await apiFetch("/api/conversations");
       if (r.ok) {
         const data = await r.json();
         setConversations(data.conversations || []);
@@ -99,7 +114,7 @@ export function NuvioApp() {
       }
       setPage("home");
       setSidebar(false);
-      const res = await fetch(`${API}/api/conversations/${convId}`);
+      const res = await apiFetch(`/api/conversations/${convId}`);
       if (res.ok) {
         const data = await res.json();
         const msgs: Message[] = (data.messages || []).map((m: any) => ({
@@ -108,9 +123,18 @@ export function NuvioApp() {
           sources: m.sources,
         }));
         setMessages(msgs);
+      } else {
+        // If saved conversation ID does not exist on backend (e.g. 404), reset state cleanly
+        setActiveConvId(null);
+        setMessages([]);
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("nuvio_active_conv_id");
+        }
       }
     } catch (e) {
       console.error("Failed to load conversation", e);
+      setActiveConvId(null);
+      setMessages([]);
     } finally {
       setLoading(false);
     }
@@ -146,7 +170,7 @@ export function NuvioApp() {
     if (e) e.preventDefault();
     if (!editTitleInput.trim()) return;
     try {
-      await fetch(`${API}/api/conversations/${convId}`, {
+      await apiFetch(`/api/conversations/${convId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: editTitleInput.trim() }),
@@ -161,7 +185,7 @@ export function NuvioApp() {
     e.stopPropagation();
     if (!confirm("Delete this conversation?")) return;
     try {
-      await fetch(`${API}/api/conversations/${convId}`, { method: "DELETE" });
+      await apiFetch(`/api/conversations/${convId}`, { method: "DELETE" });
       if (activeConvId === convId) {
         handleNewChat();
       }
@@ -187,7 +211,7 @@ export function NuvioApp() {
         const fd = new FormData();
         fd.append("file", file);
         fd.append("user_note", query || `Uploaded: ${file.name}`);
-        try { await fetch(`${API}/api/documents/upload`, { method: "POST", body: fd }); } catch {}
+        try { await apiFetch(`/api/documents/upload`, { method: "POST", body: fd }); } catch {}
       }
 
       let currentConvId = activeConvId;
@@ -195,7 +219,7 @@ export function NuvioApp() {
       // If no active conversation, create one on the backend first
       if (!currentConvId) {
         try {
-          const createRes = await fetch(`${API}/api/conversations`, { method: "POST" });
+          const createRes = await apiFetch(`/api/conversations`, { method: "POST" });
           if (createRes.ok) {
             const newConv = await createRes.json();
             currentConvId = newConv.id;
@@ -208,12 +232,26 @@ export function NuvioApp() {
       }
 
       // Execute Chat API (persistent or fallback)
-      const endpoint = currentConvId ? `${API}/api/conversations/${currentConvId}/chat` : `${API}/api/chat`;
-      const chatRes = await fetch(endpoint, {
+      let endpoint = currentConvId ? `/api/conversations/${currentConvId}/chat` : `/api/chat`;
+      let chatRes = await apiFetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: query, history: messages.slice(-6).map(m => ({ role: m.role, content: m.text })) }),
       });
+      
+      // If 404 because conversation ID was stale/deleted, fallback cleanly to /api/chat
+      if (chatRes.status === 404 && currentConvId) {
+        setActiveConvId(null);
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("nuvio_active_conv_id");
+        }
+        endpoint = `/api/chat`;
+        chatRes = await apiFetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: query, history: messages.slice(-6).map(m => ({ role: m.role, content: m.text })) }),
+        });
+      }
       
       if (!chatRes.ok) throw new Error("Backend error");
       const data = await chatRes.json();
@@ -250,8 +288,8 @@ export function NuvioApp() {
 
   function renderContent() {
     if (page === "home") return <Home messages={messages} input={input} setInput={setInput} send={send} loading={loading} voice={voice} voiceStatus={voiceStatus} level={level} onVoice={startVoice} onStopVoice={stopVoice} onPreview={openPreview} pendingFiles={pendingFiles} setPendingFiles={setPendingFiles} chatFileRef={chatFileRef} onChatFile={handleChatFile} feedEnd={feedEnd} />;
-    if (page === "documents") return <Documents docs={realDocs} onPreview={openPreview} onDelete={async (id) => { try { await fetch(`${API}/api/documents/${id}`, { method: "DELETE" }); fetchDocs(); fetchMems(); } catch {} }} onUpload={async () => { fileRef.current?.click(); }} fileRef={fileRef} onFileChange={async (e) => { const file = e.target.files?.[0]; if (!file) return; const fd = new FormData(); fd.append("file", file); fd.append("user_note", ""); try { await fetch(`${API}/api/documents/upload`, { method: "POST", body: fd }); fetchDocs(); } catch {} if (fileRef.current) fileRef.current.value = ""; }} />;
-    if (page === "memory") return <Memory memories={realMemories} onDelete={async (id) => { try { await fetch(`${API}/api/memories/${id}`, { method: "DELETE" }); fetchMems(); } catch {} }} onAdd={async (text) => { try { await fetch(`${API}/api/memories`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: text }) }); fetchMems(); } catch {} }} />;
+    if (page === "documents") return <Documents docs={realDocs} onPreview={openPreview} onDelete={async (id) => { try { await apiFetch(`/api/documents/${id}`, { method: "DELETE" }); fetchDocs(); fetchMems(); } catch {} }} onUpload={async () => { fileRef.current?.click(); }} fileRef={fileRef} onFileChange={async (e) => { const file = e.target.files?.[0]; if (!file) return; const fd = new FormData(); fd.append("file", file); fd.append("user_note", ""); try { await apiFetch(`/api/documents/upload`, { method: "POST", body: fd }); fetchDocs(); } catch {} if (fileRef.current) fileRef.current.value = ""; }} />;
+    if (page === "memory") return <Memory memories={realMemories} onDelete={async (id) => { try { await apiFetch(`/api/memories/${id}`, { method: "DELETE" }); fetchMems(); } catch {} }} onAdd={async (text) => { try { await apiFetch(`/api/memories`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: text }) }); fetchMems(); } catch {} }} />;
     if (page === "settings") return <SettingsPage />;
     return <Collection page={page} />;
   }

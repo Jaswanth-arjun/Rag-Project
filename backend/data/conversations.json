@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": "08c03bc7-b6fa-4010-be2a-84e34c7f5783",
+    "title": "Aadhaar Card Retrieval Assistance",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Find my Aadhaar card",
+        "timestamp": "2026-08-08T14:21:55.233884"
+      },
+      {
+        "role": "assistant",
+        "content": "📄 **Document File Found:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n📂 **Category:** `Personal Documents` | 📦 **Size:** `91.3 KB`\n\n🖼️ **Image Preview:**\n\n![b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n📥 [**Click Here to View / Download Full Resolution Image**](http://localhost:8000/api/documents/file/b20b8a16-3f41-4562-ae61-7d8f4b756515)\n\n---\n\n### 🤖 AI Analysis\n\n**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 0110 1696 3\n- **Aadhaar Number:** 2601 9471 5892\n- **Visible Text:** \n  - \"Your Aadhaar\"\n  - \"Aadhaar Number\"\n  - \"Information\"\n- **Personal Information:**\n  - Name: [Not visible]\n  - Address: [Not visible]\n- **QR Code:** Present, containing encoded information\n- **Language:** Kannada and English\n- **Additional Information:** \n  - Contact details for UIDAI\n  - Instructions related to Aadhaar usage\n\nThis description provides a comprehensive overview for search indexing purposes.\n\n---\n\n### 📊 Document Details & Analyzed Content\n\n- **File Name:** `b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg`\n- **Category:** `Personal Documents`\n- **AI Identified As:** ***Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011*\n- **Status:** Permanently stored in your knowledge base memory\n",
+        "timestamp": "2026-08-08T14:21:56.938227",
+        "sources": [
+          {
+            "docId": "b20b8a16-3f41-4562-ae61-7d8f4b756515",
+            "docName": "b20b8a16-3f41-4562-ae61-7d8f4b756515.jpeg",
+            "snippet": "**Document Type:** Aadhaar Card\n\n**Key Details:**\n- **Issuing Authority:** Government of India\n- **Organization Name:** Unique Identification Authority of India (UIDAI)\n- **Document Number:** 0000 011",
+            "relevance": 1.0
+          }
+        ]
+      }
+    ],
+    "created_at": "2026-08-08T14:21:55.207147",
+    "updated_at": "2026-08-08T14:21:56.938235",
+    "last_message_at": "2026-08-08T14:21:56.938237"
+  }
+]
